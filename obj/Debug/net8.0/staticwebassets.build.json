@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "z/qZ4K5Mmsi/hdty/ZMft+51ZjTzm3G28M1RmQfF9V0=",
+  "Source": "MongoDb",
+  "BasePath": "_content/MongoDb",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
