@@ -44,3 +44,4 @@ C:\Users\Abrham\Documents\vs code\dot net\MongoDb\obj\Debug\net8.0\refint\MongoD
 C:\Users\Abrham\Documents\vs code\dot net\MongoDb\obj\Debug\net8.0\MongoDb.pdb
 C:\Users\Abrham\Documents\vs code\dot net\MongoDb\obj\Debug\net8.0\MongoDb.genruntimeconfig.cache
 C:\Users\Abrham\Documents\vs code\dot net\MongoDb\obj\Debug\net8.0\ref\MongoDb.dll
+C:\Users\Abrham\Documents\vs code\dot net\MongoDb\obj\Debug\net8.0\MongoDb.sourcelink.json
