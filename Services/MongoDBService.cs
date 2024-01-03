@@ -11,9 +11,7 @@ public class MongoDBService{
         MongoClient client = new MongoClient(mongoDBSettings.Value.ConnectionURI);
         IMongoDatabase database = client.GetDatabase(mongoDBSettings.Value.DatabaseName);
         _playlistCollection = database.GetCollection<Playlist>(mongoDBSettings.Value.CollectionName);
-
     }
-
     public async Task CreateAsync(Playlist playlist){
         await _playlistCollection.InsertOneAsync(playlist);
         return;

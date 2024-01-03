@@ -3,17 +3,18 @@ using Microsoft.Extensions.Hosting;
 using MongoDB.Driver;
 using MongoDb.Models;
 using MongoDb.Services;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // MongoDB services
 builder.Services.Configure<MongoDBSettings>(builder.Configuration.GetSection("MongoDB"));
+builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(x =>
+                x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 builder.Services.AddSingleton<MongoDBService>();
 
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -28,35 +29,16 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.MapGet("/api/playlists", async (MongoDBService mongoDBService) =>
+if (app.Environment.IsDevelopment())
 {
-    return await mongoDBService.GetAsync();
-})
-.WithName("GetPlaylists")
-.WithOpenApi();
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
 
-app.MapPost("/api/playlists", async (MongoDBService mongoDBService, Playlist playlist) =>
-{
-    await mongoDBService.CreateAsync(playlist);
-    return Results.Created($"/api/playlists/{playlist.Id}", playlist);
-})
-.WithName("CreatePlaylist")
-.WithOpenApi();
+app.UseHttpsRedirection();
 
-app.MapPut("/api/playlists/{id}/add", async (MongoDBService mongoDBService, string id, [FromBody] string movieId) =>
-{
-    await mongoDBService.AddToPlaylistAsync(id, movieId);
-    return Results.NoContent();
-})
-.WithName("AddToPlaylist")
-.WithOpenApi();
+app.UseAuthorization();
 
-app.MapDelete("/api/playlists/{id}", async (MongoDBService mongoDBService, string id) =>
-{
-    await mongoDBService.DeleteAsync(id);
-    return Results.NoContent();
-})
-.WithName("DeletePlaylist")
-.WithOpenApi();
+app.MapControllers();
 
 app.Run();
